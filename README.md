@@ -1,7 +1,7 @@
 SeaweedFs.Client
 ============
 
-C# [seaweedfs](https://www.google.com) client. [Example](./examples/SeaweedFs.Client.Example) usage.
+C# [seaweedfs](https://github.com/chrislusf/seaweedfs) client. [Example](./examples/SeaweedFs.Client.Example) usage.
 
 Quick Start
 -------
