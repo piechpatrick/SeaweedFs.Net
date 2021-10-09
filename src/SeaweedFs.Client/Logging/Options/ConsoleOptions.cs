@@ -6,18 +6,17 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
-namespace SeaweedFs.Client.Infrastructure.Builders
+namespace SeaweedFs.Client.Logging.Options
 {
     /// <summary>
-    /// Interface IRequestBuilder
+    /// Class ConsoleOptions.
     /// </summary>
-    /// <typeparam name="TRequest">The type of the t request.</typeparam>
-    internal interface IRequestBuilder<out TRequest>
+    public class ConsoleOptions
     {
         /// <summary>
-        /// Builds this instance.
+        /// Gets or sets a value indicating whether this <see cref="ConsoleOptions"/> is enabled.
         /// </summary>
-        /// <returns>TRequest.</returns>
-        TRequest Build();
+        /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
+        public bool Enabled { get; set; }
     }
 }
