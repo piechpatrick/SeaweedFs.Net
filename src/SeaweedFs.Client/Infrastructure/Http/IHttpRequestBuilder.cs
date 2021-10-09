@@ -6,12 +6,13 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
+
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using SeaweedFs.Client.Infrastructure.Builders;
+using SeaweedFs.Filer.Infrastructure.Builders;
 
-namespace SeaweedFs.Client.Infrastructure.Http
+namespace SeaweedFs.Filer.Infrastructure.Http
 {
     /// <summary>
     /// Interface IHttpRequestBuilder

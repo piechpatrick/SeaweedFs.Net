@@ -1,4 +1,4 @@
-﻿namespace SeaweedFs.Client.Store
+﻿namespace SeaweedFs.Filer.Store
 {
     public class FilerStore
     {

@@ -6,17 +6,18 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
+
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SeaweedFs.Client.Infrastructure.Abstractions
+namespace SeaweedFs.Filer.Infrastructure.Abstractions
 {
     /// <summary>
     /// Interface IFilerService
-    /// Implements the <see cref="SeaweedFs.Client.Infrastructure.Abstractions.IOperator" />
+    /// Implements the <see cref="IOperator" />
     /// </summary>
-    /// <seealso cref="SeaweedFs.Client.Infrastructure.Abstractions.IOperator" />
+    /// <seealso cref="IOperator" />
     internal interface IFilerService : IOperator
     {
         /// <summary>

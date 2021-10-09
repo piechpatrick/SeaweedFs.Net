@@ -6,13 +6,14 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
-using SeaweedFs.Client.Infrastructure.Abstractions;
-using SeaweedFs.Client.Operations.Abstractions;
+
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using SeaweedFs.Filer.Infrastructure.Abstractions;
+using SeaweedFs.Filer.Operations.Abstractions;
 
-namespace SeaweedFs.Client.Operations.Inbound
+namespace SeaweedFs.Filer.Operations.Inbound
 {
     /// <summary>
     /// Class GetFileStreamOperation.

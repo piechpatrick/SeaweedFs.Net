@@ -6,18 +6,19 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
+
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace SeaweedFs.Client.Operations.Abstractions
+namespace SeaweedFs.Filer.Operations.Abstractions
 {
     /// <summary>
     /// Class OutboundStreamOperation.
-    /// Implements the <see cref="SeaweedFs.Client.Operations.Abstractions.OperationBase" />
+    /// Implements the <see cref="OperationBase" />
     /// Implements the <see cref="System.IDisposable" />
     /// </summary>
-    /// <seealso cref="SeaweedFs.Client.Operations.Abstractions.OperationBase" />
+    /// <seealso cref="OperationBase" />
     /// <seealso cref="System.IDisposable" />
     internal abstract class OutboundStreamOperation : OperationBase, IDisposable
     {

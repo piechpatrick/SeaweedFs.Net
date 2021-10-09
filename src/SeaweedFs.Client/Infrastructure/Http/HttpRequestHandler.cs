@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SeaweedFs.Client.Infrastructure.Http
+namespace SeaweedFs.Filer.Infrastructure.Http
 {
     internal class HttpRequestHandler<TRequestBuilder> : IHttpRequestHandler<TRequestBuilder> where TRequestBuilder : IHttpRequestBuilder
     {

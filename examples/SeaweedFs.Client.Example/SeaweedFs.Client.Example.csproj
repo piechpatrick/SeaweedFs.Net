@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SeaweedFs.Client\SeaweedFs.Client.csproj" />
+    <ProjectReference Include="..\..\src\SeaweedFs.Client\SeaweedFs.Filer.csproj" />
   </ItemGroup>
 
 </Project>

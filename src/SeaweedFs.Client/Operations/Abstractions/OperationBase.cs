@@ -6,10 +6,11 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
-using System;
-using SeaweedFs.Client.Infrastructure.Http;
 
-namespace SeaweedFs.Client.Operations.Abstractions
+using System;
+using SeaweedFs.Filer.Infrastructure.Http;
+
+namespace SeaweedFs.Filer.Operations.Abstractions
 {
     /// <summary>
     /// Class OperationBase.

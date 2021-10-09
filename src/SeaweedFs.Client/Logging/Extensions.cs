@@ -6,23 +6,24 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SeaweedFs.Client.Logging.Options;
+using SeaweedFs.Filer.Logging.Options;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 using Serilog.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SeaweedFs.Client.Logging
+namespace SeaweedFs.Filer.Logging
 {
     /// <summary>
     /// Class Extensions.

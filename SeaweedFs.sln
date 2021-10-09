@@ -5,7 +5,13 @@ VisualStudioVersion = 17.0.31710.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaweedFs.Client.Example", "examples\SeaweedFs.Client.Example\SeaweedFs.Client.Example.csproj", "{B98D8DF3-23A9-4232-9A11-15EBA1FB9CD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeaweedFs.Client", "src\SeaweedFs.Client\SeaweedFs.Client.csproj", "{5A75E681-243B-4D44-8130-498BE618D3D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaweedFs.Filer", "src\SeaweedFs.Client\SeaweedFs.Filer.csproj", "{5A75E681-243B-4D44-8130-498BE618D3D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeaweedFs", "src\SeaweedFs\SeaweedFs.csproj", "{15623AFA-F037-4DBA-8F81-168588C66C9F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{7CE57CCB-B38A-4902-98F4-4A06B402EAD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B31CB3B2-DD07-48FB-9CDD-2B908DC71A5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +27,18 @@ Global
 		{5A75E681-243B-4D44-8130-498BE618D3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A75E681-243B-4D44-8130-498BE618D3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A75E681-243B-4D44-8130-498BE618D3D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15623AFA-F037-4DBA-8F81-168588C66C9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15623AFA-F037-4DBA-8F81-168588C66C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15623AFA-F037-4DBA-8F81-168588C66C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15623AFA-F037-4DBA-8F81-168588C66C9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B98D8DF3-23A9-4232-9A11-15EBA1FB9CD2} = {7CE57CCB-B38A-4902-98F4-4A06B402EAD2}
+		{5A75E681-243B-4D44-8130-498BE618D3D0} = {B31CB3B2-DD07-48FB-9CDD-2B908DC71A5F}
+		{15623AFA-F037-4DBA-8F81-168588C66C9F} = {B31CB3B2-DD07-48FB-9CDD-2B908DC71A5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA6C032B-98D7-46B0-8479-A08796E74366}

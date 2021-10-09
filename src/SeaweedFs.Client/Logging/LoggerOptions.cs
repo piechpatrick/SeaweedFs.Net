@@ -6,10 +6,11 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
-using SeaweedFs.Client.Logging.Options;
-using System.Collections.Generic;
 
-namespace SeaweedFs.Client.Logging
+using System.Collections.Generic;
+using SeaweedFs.Filer.Logging.Options;
+
+namespace SeaweedFs.Filer.Logging
 {
     /// <summary>
     /// Class LoggerOptions.

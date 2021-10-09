@@ -6,12 +6,13 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
+
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SeaweedFs.Client.Infrastructure.Http
+namespace SeaweedFs.Filer.Infrastructure.Http
 {
     /// <summary>
     /// Interface IHttpRequestHandler

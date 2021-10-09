@@ -6,7 +6,7 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
-namespace SeaweedFs.Client.Infrastructure.Builders
+namespace SeaweedFs.Filer.Infrastructure.Builders
 {
     /// <summary>
     /// Interface IRequestBuilder

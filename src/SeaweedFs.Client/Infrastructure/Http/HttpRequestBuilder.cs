@@ -6,7 +6,7 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
-using MimeKit;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,14 +14,15 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using MimeKit;
 
-namespace SeaweedFs.Client.Infrastructure.Http
+namespace SeaweedFs.Filer.Infrastructure.Http
 {
     /// <summary>
     /// Class HttpRequestBuilder.
-    /// Implements the <see cref="SeaweedFs.Client.Infrastructure.Http.IHttpRequestBuilder" />
+    /// Implements the <see cref="IHttpRequestBuilder" />
     /// </summary>
-    /// <seealso cref="SeaweedFs.Client.Infrastructure.Http.IHttpRequestBuilder" />
+    /// <seealso cref="IHttpRequestBuilder" />
     internal class HttpRequestBuilder : IHttpRequestBuilder
     {
         /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace SeaweedFs.Client.Logging
+﻿namespace SeaweedFs.Filer.Logging
 {
     internal interface ILoggingService
     {

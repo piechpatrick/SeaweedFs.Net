@@ -6,9 +6,10 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
-using SeaweedFs.Client.Infrastructure.Abstractions;
 
-namespace SeaweedFs.Client.Operations.Abstractions
+using SeaweedFs.Filer.Infrastructure.Abstractions;
+
+namespace SeaweedFs.Filer.Operations.Abstractions
 {
     /// <summary>
     /// Interface IOperation

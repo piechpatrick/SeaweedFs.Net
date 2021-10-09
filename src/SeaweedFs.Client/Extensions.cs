@@ -6,13 +6,14 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+
 using System;
 using System.Net.Http.Headers;
 using System.Net.Mime;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace SeaweedFs.Client
+namespace SeaweedFs.Filer
 {
     /// <summary>
     /// Class Extensions.

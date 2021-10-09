@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SeaweedFs.Client.Logging;
+using SeaweedFs.Filer;
+using SeaweedFs.Filer.Logging;
 
 namespace SeaweedFs.Client.Example
 {

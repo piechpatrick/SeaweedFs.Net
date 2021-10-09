@@ -6,11 +6,12 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-09-2021
 // ***********************************************************************
+
 using System;
 using System.Net;
 using System.Net.Http;
 
-namespace SeaweedFs.Client.Infrastructure.Http
+namespace SeaweedFs.Filer.Infrastructure.Http
 {
     /// <summary>
     /// Class HttpRequestResult.
