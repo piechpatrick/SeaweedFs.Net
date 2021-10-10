@@ -5,15 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\Builders\" />
-    <Folder Include="Logging\Options\" />
-    <Folder Include="Store\" />
-    <Folder Include="Operations\Abstractions\" />
-    <Folder Include="Operations\Inbound\" />
-    <Folder Include="Operations\Outbound\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Figgle" Version="0.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
@@ -28,6 +19,10 @@
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SeaweedFs\SeaweedFs.csproj" />
   </ItemGroup>
 
 </Project>

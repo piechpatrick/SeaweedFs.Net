@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SeaweedFs.Filer;
-using SeaweedFs.Filer.Logging;
+using SeaweedFs.Logging;
 
 namespace SeaweedFs.Client.Example
 {
@@ -40,32 +40,33 @@ namespace SeaweedFs.Client.Example
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.ConfigureServices(services =>
-                    {
-                        services.AddControllers();
-                        services.AddSwaggerGen(c =>
                         {
-                            c.SwaggerDoc("v1", new OpenApiInfo { Title = "SeaweedFs.Client", Version = "v1" });
-                        });
+                            services.AddSwaggerGen(c =>
+                            {
+                                c.SwaggerDoc("v1", new OpenApiInfo {Title = "SeaweedFs.Client", Version = "v1"});
+                            });
 
-                        services.AddSeaweed();
-                    })
-                   .Configure(app =>
-                   {
-                       var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
-                       if (env.IsDevelopment())
-                       {
-                           app.UseDeveloperExceptionPage();
-                           app.UseSwagger();
-                           app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SeaweedFs.Client v1"));
-                       }
-                       app.UseRouting();
-                       app.UseAuthorization();
-                       app.UseEndpoints(endpoints =>
-                       {
-                           endpoints.MapControllers();
-                       });
-                   })
-                   .UseLogging();
+                            services.AddSeaweedFiler("http://localhost:8888");
+                            services.AddControllers();
+                        })
+                        .Configure(app =>
+                        {
+                            var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
+                            if (env.IsDevelopment())
+                            {
+                                app.UseDeveloperExceptionPage();
+                                app.UseSwagger();
+                                app.UseSwaggerUI(c =>
+                                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SeaweedFs.Client v1"));
+                            }
+
+                            app.UseRouting();
+                            app.UseAuthorization();
+                            app.UseEndpoints(endpoints =>
+                            {
+                                endpoints.MapControllers();
+                            });
+                        });
                 });
     }
 }

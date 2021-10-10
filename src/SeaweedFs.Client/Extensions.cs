@@ -4,14 +4,18 @@
 // Created          : 10-09-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-09-2021
+// Last Modified On : 10-10-2021
 // ***********************************************************************
 
-using System;
-using System.Net.Http.Headers;
-using System.Net.Mime;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SeaweedFs.Filer.Internals;
+using SeaweedFs.Filer.Internals.Operations;
+using SeaweedFs.Filer.Store;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Mime;
 
 namespace SeaweedFs.Filer
 {
@@ -28,38 +32,32 @@ namespace SeaweedFs.Filer
         /// Adds the seaweed.
         /// </summary>
         /// <param name="serviceCollection">The service collection.</param>
-        /// <param name="sectionName">Name of the section.</param>
+        /// <param name="url">The URL.</param>
         /// <returns>IServiceCollection.</returns>
-        public static IServiceCollection AddSeaweed(this IServiceCollection serviceCollection, string sectionName = SectionName)
+        public static IServiceCollection AddSeaweedFiler(this IServiceCollection serviceCollection, string url)
         {
-
-            if (string.IsNullOrEmpty(sectionName))
-            {
-                sectionName = SectionName;
-            }
-
-            using var serviceProvider = serviceCollection.BuildServiceProvider();
-
             serviceCollection.AddMemoryCache();
-
-            var options = serviceCollection.GetOptions<SeaweedOptions>(sectionName);
-
-            serviceCollection.AddSingleton(options);
-
-            serviceCollection.AddHttpClient(options.MasterHttpClientName, c =>
+            serviceCollection.AddHttpClient(url, c =>
             {
-                c.BaseAddress = new Uri(options.MasterUrl);
-                c.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse(options.MasterHttpClientName));
-                c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json));
-            });
-            serviceCollection.AddHttpClient(options.FilerHttpClientName, c =>
-            {
-                c.BaseAddress = new Uri(options.FilerUrl);
-                c.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse(options.FilerHttpClientName));
+                c.BaseAddress = new Uri(url);
                 c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json));
             });
 
-            Console.WriteLine(Figgle.FiggleFonts.Doom.Render($"{options.Name}"));
+
+            FilerClient filerClient = default(FilerClient);
+            serviceCollection.AddSingleton<IFilerClient>(sp =>
+            {
+                var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
+                var httpClient = httpClientFactory.CreateClient(url);
+                filerClient = new FilerClient(httpClient);
+                return filerClient;
+            });
+            serviceCollection.AddTransient<IFilerOperationsExecutor>(sp => new FilerOperationsExecutor(filerClient));
+            serviceCollection.AddTransient<IFilerStore>(sp =>
+            {
+                var filerStore = new FilerStore(sp.GetRequiredService<IFilerClient>(), sp.GetRequiredService<IFilerOperationsExecutor>());
+                return filerStore;
+            });
 
             return serviceCollection;
         }
