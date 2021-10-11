@@ -41,6 +41,52 @@ It should be really powerfull with dynamic catalog subdirectories
 
 Quick Start
 -------
+Usage:
+
+            //create fakeFileStream
+            await using (var outboundFileStream = await GetStream(0xC0FFEE))
+            {
+
+                _logger.LogInformation($"File Created: {outboundFileStream.Name}");
+
+                //get catalog
+                var catalog = _filerStore.GetCatalog("documents");
+
+                //delete all files
+                Parallel.ForEach(await catalog.ListAsync(), (bi) => catalog.DeleteAsync(bi).ConfigureAwait(false));
+
+                //create simple blob
+                var blob = new Blob($"{Guid.NewGuid()}.txt", outboundFileStream);
+
+                //add custom header value
+                blob.BlobInfo.Headers.Add("Seaweed-OwnerId", new[] { $"{Guid.NewGuid()}" });
+
+                //push blob
+                await catalog.PushAsync(blob, new Progress<int>((p) =>
+                {
+                    _logger.LogInformation($"Upload progress: {p} %");
+                }));
+
+                using (var uploadedBlob = await catalog.GetAsync(blob.BlobInfo.Name,
+                    new Progress<int>((p) => { _logger.LogInformation($"Download progress: {p} %"); })))
+                {
+                    //read
+                    using (var sr = new StreamReader(uploadedBlob.Content))
+                    {
+                        string line;
+                        while ((line = await sr.ReadLineAsync()) != null)
+                        {
+
+                        }
+                    }
+
+
+                }
+
+                System.IO.File.Delete(outboundFileStream.Name);
+                _logger.LogInformation($"File Deleted: {outboundFileStream.Name}");
+            }
+            
 Setup:
 
              public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -78,27 +124,4 @@ Setup:
                         .UseLogging(LoggerOptions.Default);
                 });
             
-            
-Usage:
-
-            //get catalog
-            var catalog = _filerStore.GetCatalog("documents");
-
-            //delete all files
-            var blobInfos = await catalog.ListAsync();
-            foreach (var bi in blobInfos)
-            {
-                await catalog.DeleteAsync(bi);
-            }
-
-            //create simple blob
-            var blob = new Blob($"{Guid.NewGuid()}.txt", exampleFileStream);
-
-            //add custom header value
-            blob.BlobInfo.Headers.Add("Seaweed-OwnerId", $"{Guid.NewGuid()}");
-
-            //push blob
-            await catalog.PushAsync(blob);
-
-            //get blob
-            using var uploadedBlob = await catalog.GetAsync(blob.BlobInfo.Name);
+                        
