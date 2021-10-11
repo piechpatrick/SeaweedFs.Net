@@ -10,9 +10,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using SeaweedFs.Infrastructure.Builders;
+using SeaweedFs.Builders;
 
-namespace SeaweedFs.Infrastructure.Http
+namespace SeaweedFs.Http
 {
     /// <summary>
     /// Interface IHttpRequestBuilder

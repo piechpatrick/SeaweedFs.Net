@@ -6,7 +6,8 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-10-2021
 // ***********************************************************************
-using SeaweedFs.Infrastructure.Abstractions;
+
+using SeaweedFs.Abstractions;
 
 namespace SeaweedFs.Operations
 {

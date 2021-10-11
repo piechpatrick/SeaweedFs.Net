@@ -4,9 +4,11 @@
 // Created          : 10-10-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-10-2021
+// Last Modified On : 10-11-2021
 // ***********************************************************************
-using System.IO;
+
+using SeaweedFs.Store;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -22,12 +24,39 @@ namespace SeaweedFs.Filer.Store.Catalog
         /// </summary>
         /// <value>The directory.</value>
         string Directory { get; }
+
         /// <summary>
         /// Uploads the file.
         /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="stream">The stream.</param>
+        /// <param name="blob">The BLOB.</param>
         /// <returns>Task&lt;HttpResponseMessage&gt;.</returns>
-        Task<HttpResponseMessage> Upload(string fileName, Stream stream);
+        Task<HttpResponseMessage> PushAsync(Blob blob);
+
+        /// <summary>
+        /// Gets the specified file name.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>Task&lt;Blob&gt;.</returns>
+        Task<Blob> GetAsync(string fileName);
+
+        /// <summary>
+        /// Gets the asynchronous.
+        /// </summary>
+        /// <param name="blobInfo">The BLOB information.</param>
+        /// <returns>Task&lt;Blob&gt;.</returns>
+        Task<Blob> GetAsync(BlobInfo blobInfo);
+
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <param name="blobInfo">The BLOB information.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        Task<bool> DeleteAsync(BlobInfo blobInfo);
+
+        /// <summary>
+        /// Lists this instance.
+        /// </summary>
+        /// <returns>Task&lt;IEnumerable&lt;BlobInfo&gt;&gt;.</returns>
+        Task<IEnumerable<BlobInfo>> ListAsync();
     }
 }

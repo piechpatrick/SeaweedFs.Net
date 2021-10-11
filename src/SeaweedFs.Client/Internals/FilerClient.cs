@@ -39,7 +39,7 @@ namespace SeaweedFs.Filer.Internals
         /// Gets the stream asynchronous.
         /// </summary>
         /// <param name="httpRequestMessage">The HTTP request message.</param>
-        /// <returns>Task&lt;Stream&gt;.</returns>
+        /// <returns>Task&lt;Content&gt;.</returns>
         Task<Stream> IFilerClient.GetStreamAsync(HttpRequestMessage httpRequestMessage)
         {
             return _httpClient.GetStreamAsync(httpRequestMessage.RequestUri);

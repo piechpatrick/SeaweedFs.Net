@@ -8,7 +8,7 @@
 // ***********************************************************************
 
 using System;
-using SeaweedFs.Infrastructure.Http;
+using SeaweedFs.Http;
 
 namespace SeaweedFs.Operations
 {

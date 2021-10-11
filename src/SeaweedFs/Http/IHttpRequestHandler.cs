@@ -12,7 +12,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SeaweedFs.Infrastructure.Http
+namespace SeaweedFs.Http
 {
     /// <summary>
     /// Interface IHttpRequestHandler
@@ -32,7 +32,7 @@ namespace SeaweedFs.Infrastructure.Http
         /// </summary>
         /// <param name="httpRequestBuilder">The HTTP request builder.</param>
         /// <param name="httpCompletionOption">The HTTP completion option.</param>
-        /// <returns>Task&lt;Stream&gt;.</returns>
+        /// <returns>Task&lt;Content&gt;.</returns>
         Task<Stream> GetStream(Func<TRequestBuilder, TRequestBuilder> httpRequestBuilder, HttpCompletionOption httpCompletionOption = HttpCompletionOption.ResponseContentRead);
     }
 }

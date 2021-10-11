@@ -6,12 +6,13 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-10-2021
 // ***********************************************************************
+
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SeaweedFs.Infrastructure.Http
+namespace SeaweedFs.Http
 {
     /// <summary>
     /// Class HttpRequestHandler.
@@ -72,7 +73,7 @@ namespace SeaweedFs.Infrastructure.Http
         /// </summary>
         /// <param name="httpRequestBuilder">The HTTP request builder.</param>
         /// <param name="httpCompletionOption">The HTTP completion option.</param>
-        /// <returns>System.Threading.Tasks.Task&lt;System.IO.Stream&gt;.</returns>
+        /// <returns>System.Threading.Tasks.Task&lt;System.IO.Content&gt;.</returns>
         public async Task<Stream> GetStream(Func<TRequestBuilder, TRequestBuilder> httpRequestBuilder, HttpCompletionOption httpCompletionOption = HttpCompletionOption.ResponseContentRead)
         {
             try

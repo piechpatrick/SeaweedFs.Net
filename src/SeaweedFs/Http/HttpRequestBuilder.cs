@@ -16,7 +16,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using MimeKit;
 
-namespace SeaweedFs.Infrastructure.Http
+namespace SeaweedFs.Http
 {
     /// <summary>
     /// Class HttpRequestBuilder.

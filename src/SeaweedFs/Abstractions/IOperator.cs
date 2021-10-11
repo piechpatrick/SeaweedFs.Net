@@ -6,18 +6,13 @@
 // Last Modified By : piechpatrick
 // Last Modified On : 10-10-2021
 // ***********************************************************************
-namespace SeaweedFs.Infrastructure.Builders
+namespace SeaweedFs.Abstractions
 {
     /// <summary>
-    /// Interface IRequestBuilder
+    /// Interface IOperator
     /// </summary>
-    /// <typeparam name="TRequest">The type of the t request.</typeparam>
-    internal interface IRequestBuilder<out TRequest>
+    public interface IOperator
     {
-        /// <summary>
-        /// Builds this instance.
-        /// </summary>
-        /// <returns>TRequest.</returns>
-        TRequest Build();
+        
     }
 }
