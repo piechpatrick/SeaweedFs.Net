@@ -55,6 +55,19 @@ namespace SeaweedFs.Store
             BlobInfo = new BlobInfo(name);
         }
         /// <summary>
+        /// Initializes a new instance of the <see cref="Blob"/> class.
+        /// </summary>
+        /// <param name="blobInfo">The BLOB information.</param>
+        /// <param name="content">The content.</param>
+        /// <exception cref="System.InvalidOperationException">Blob</exception>
+        public Blob(BlobInfo blobInfo, Stream content)
+        {
+            if (string.IsNullOrEmpty(blobInfo.Name) || !content.CanRead)
+                throw new InvalidOperationException(nameof(Blob));
+            Content = content;
+            BlobInfo = blobInfo;
+        }
+        /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()

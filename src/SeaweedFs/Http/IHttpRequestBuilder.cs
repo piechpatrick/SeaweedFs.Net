@@ -45,7 +45,7 @@ namespace SeaweedFs.Http
         /// </summary>
         /// <param name="headers">The headers.</param>
         /// <returns>IHttpRequestBuilder.</returns>
-        IHttpRequestBuilder WithHeaders(IDictionary<string, string> headers);
+        IHttpRequestBuilder WithHeaders(IDictionary<string, IEnumerable<string>> headers);
         /// <summary>
         /// Withes the content of the stream.
         /// </summary>

@@ -7,10 +7,6 @@
 // Last Modified On : 10-11-2021
 // ***********************************************************************
 
-using SeaweedFs.Filer.Internals.Operations.Abstractions;
-using SeaweedFs.Infrastructure.Protocol;
-using SeaweedFs.Operations;
-using SeaweedFs.Store;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,8 +14,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using SeaweedFs.Filer.Internals.Operations.Abstractions;
+using SeaweedFs.Infrastructure.Protocol;
+using SeaweedFs.Operations;
+using SeaweedFs.Store;
 
-namespace SeaweedFs.Filer.Internals.Operations.Outbound
+namespace SeaweedFs.Filer.Internals.Operations.Inbound
 {
     /// <summary>
     /// Class ListFilesOperation.

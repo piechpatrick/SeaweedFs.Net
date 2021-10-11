@@ -10,12 +10,13 @@ using System.Collections.Generic;
 
 namespace SeaweedFs.Store
 {
+
     /// <summary>
     /// Class BlobHeaders.
-    /// Implements the <see cref="System.Collections.Generic.Dictionary{System.String, System.String}" />
+    /// Implements the <see cref="System.Collections.Generic.Dictionary{System.String, System.Collections.Generic.IEnumerable{System.String}}" />
     /// </summary>
-    /// <seealso cref="System.Collections.Generic.Dictionary{System.String, System.String}" />
-    public class BlobHeaders : Dictionary<string, string>
+    /// <seealso cref="System.Collections.Generic.Dictionary{System.String, System.Collections.Generic.IEnumerable{System.String}}" />
+    public class BlobHeaders : Dictionary<string, IEnumerable<string>>
     {
        
     }

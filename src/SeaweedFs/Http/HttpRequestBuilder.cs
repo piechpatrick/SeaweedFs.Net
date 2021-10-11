@@ -79,7 +79,7 @@ namespace SeaweedFs.Http
         /// </summary>
         /// <param name="headers">The headers.</param>
         /// <returns>IHttpRequestBuilder.</returns>
-        public IHttpRequestBuilder WithHeaders(IDictionary<string, string> headers)
+        public IHttpRequestBuilder WithHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
             foreach (var (name, value) in headers)
             {

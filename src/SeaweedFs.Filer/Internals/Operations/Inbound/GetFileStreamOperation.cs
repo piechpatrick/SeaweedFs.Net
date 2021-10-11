@@ -22,7 +22,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Inbound
     /// </summary>
     /// <seealso cref="OperationBase" />
     /// <seealso cref="Stream" />
-    internal class GetFileStreamOperation : OperationBase, IFilerOperation<Stream>
+    internal class GetFileStreamOperation : OperationBase, IFilerOperation<HttpResponseMessage>
     {
         /// <summary>
         /// The path
@@ -43,9 +43,9 @@ namespace SeaweedFs.Filer.Internals.Operations.Inbound
         /// </summary>
         /// <param name="filerClient">The filerClient.</param>
         /// <returns>Task&lt;TResult&gt;.</returns>
-        public Task<Stream> Execute(IFilerClient filerClient)
+        public Task<HttpResponseMessage> Execute(IFilerClient filerClient)
         {
-            return filerClient.GetStreamAsync(HttpRequestBuilder
+            return filerClient.SendAsync(HttpRequestBuilder
                 .WithMethod(HttpMethod.Get)
                 .WithRelativeUrl(_path)
                 .Build());

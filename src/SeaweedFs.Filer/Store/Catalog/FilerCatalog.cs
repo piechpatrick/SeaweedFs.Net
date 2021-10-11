@@ -13,6 +13,7 @@ using SeaweedFs.Filer.Internals.Operations.Outbound;
 using SeaweedFs.Store;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -70,7 +71,11 @@ namespace SeaweedFs.Filer.Store.Catalog
         public async Task<Blob> GetAsync(string fileName)
         {
             var operation = new GetFileStreamOperation(Path.Combine(Directory, Path.GetFileName(fileName)));
-            return new Blob(fileName, await _executor.Execute(operation));
+            var response = await _executor.Execute(operation);
+            var blobInfo = new BlobInfo(fileName);
+            foreach (var header in response.Headers)
+                blobInfo.Headers.Add(header.Key, header.Value);
+            return new Blob(blobInfo, await response.Content.ReadAsStreamAsync());
         }
         /// <summary>
         /// Gets the specified BLOB information.

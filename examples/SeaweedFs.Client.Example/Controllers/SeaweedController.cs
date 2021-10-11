@@ -38,7 +38,7 @@ namespace SeaweedFs.Client.Example.Controllers
             var blob = new Blob($"{Guid.NewGuid()}.txt", exampleFileStream);
 
             //add custom header value
-            blob.BlobInfo.Headers.Add("Seaweed-OwnerId", $"{Guid.NewGuid()}");
+            blob.BlobInfo.Headers.Add("Seaweed-OwnerId", new[] {$"{Guid.NewGuid()}"});
 
             //push blob
             await catalog.PushAsync(blob);
