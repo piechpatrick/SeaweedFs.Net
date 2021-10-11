@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\SeaweedFs.Client\SeaweedFs.Filer.csproj" />
+    <ProjectReference Include="..\..\src\SeaweedFs.Filer\SeaweedFs.Filer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31710.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaweedFs.Client.Example", "examples\SeaweedFs.Client.Example\SeaweedFs.Client.Example.csproj", "{B98D8DF3-23A9-4232-9A11-15EBA1FB9CD2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaweedFs.Filer", "src\SeaweedFs.Client\SeaweedFs.Filer.csproj", "{5A75E681-243B-4D44-8130-498BE618D3D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaweedFs.Filer", "src\SeaweedFs.Filer\SeaweedFs.Filer.csproj", "{5A75E681-243B-4D44-8130-498BE618D3D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeaweedFs", "src\SeaweedFs\SeaweedFs.csproj", "{15623AFA-F037-4DBA-8F81-168588C66C9F}"
 EndProject
