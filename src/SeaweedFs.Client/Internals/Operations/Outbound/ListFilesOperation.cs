@@ -53,10 +53,12 @@ namespace SeaweedFs.Filer.Internals.Operations.Outbound
         async Task<IEnumerable<BlobInfo>> IFilerOperation<IEnumerable<BlobInfo>>.Execute(IFilerClient filerClient)
         {
             var response = await filerClient.SendAsync(this.BuildRequest());
-            return JsonSerializer.Deserialize<DirectoryFileEntriesResponse>(await response.Content.ReadAsStringAsync())
-                       ?.Entries.Where(ex => Convert.ToString(ex.Mode, 8) == "660")
-                       .Select(e => new BlobInfo(Path.GetFileName(e.FullPath)))
-                   ?? new List<BlobInfo>();
+            if (response.IsSuccessStatusCode)
+                return JsonSerializer.Deserialize<DirectoryFileEntriesResponse>(await response.Content.ReadAsStringAsync())
+                           ?.Entries.Where(ex => Convert.ToString(ex.Mode, 8) == "660")
+                           .Select(e => new BlobInfo(Path.GetFileName(e.FullPath)))
+                       ?? new List<BlobInfo>();
+            return new List<BlobInfo>();
         }
         /// <summary>
         /// Builds the request.

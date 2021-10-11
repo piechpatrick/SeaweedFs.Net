@@ -7,13 +7,12 @@
 // Last Modified On : 10-11-2021
 // ***********************************************************************
 
-using System;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
 using SeaweedFs.Filer.Internals.Operations.Abstractions;
 using SeaweedFs.Operations;
 using SeaweedFs.Store;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SeaweedFs.Filer.Internals.Operations.Outbound
 {
@@ -26,7 +25,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Outbound
     /// <seealso cref="OutboundStreamOperation" />
     /// <seealso cref="HttpResponseMessage" />
     /// <seealso cref="System.IAsyncDisposable" />
-    internal class UploadFileStreamOperation : OutboundStreamOperation, IFilerOperation<HttpResponseMessage>
+    internal class UploadFileStreamOperation : OutboundStreamOperation, IFilerOperation<bool>
     {
         /// <summary>
         /// The path
@@ -43,7 +42,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Outbound
         /// <param name="path">The path.</param>
         /// <param name="blobInfo">The BLOB information.</param>
         /// <param name="stream">The stream.</param>
-        public UploadFileStreamOperation(string path,BlobInfo blobInfo, Stream stream)
+        public UploadFileStreamOperation(string path, BlobInfo blobInfo, Stream stream)
             : base(stream)
         {
             _path = path;
@@ -59,10 +58,11 @@ namespace SeaweedFs.Filer.Internals.Operations.Outbound
         /// </summary>
         /// <param name="filerClient">The filerClient.</param>
         /// <returns>Task&lt;TResult&gt;.</returns>
-        Task<HttpResponseMessage> IFilerOperation<HttpResponseMessage>.Execute(IFilerClient filerClient)
+        async Task<bool> IFilerOperation<bool>.Execute(IFilerClient filerClient)
         {
             var request = this.BuildRequest();
-            return filerClient.SendAsync(request);
+            var response = await filerClient.SendAsync(request);
+            return response.IsSuccessStatusCode;
         }
 
         /// <summary>

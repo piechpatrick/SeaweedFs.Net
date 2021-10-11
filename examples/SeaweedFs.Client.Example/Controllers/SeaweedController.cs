@@ -3,6 +3,7 @@ using SeaweedFs.Filer.Store;
 using SeaweedFs.Store;
 using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SeaweedFs.Client.Example.Controllers
@@ -11,7 +12,7 @@ namespace SeaweedFs.Client.Example.Controllers
     [Route("[controller]")]
     public class SeaweedController : ControllerBase
     {
-        private readonly Stream exampleFileStream = System.IO.File.OpenRead("D://example//invoice.pdf");
+        private readonly Stream exampleFileStream = new MemoryStream(Encoding.UTF8.GetBytes("hello world"));
 
         private readonly IFilerStore _filerStore;
 
@@ -23,28 +24,27 @@ namespace SeaweedFs.Client.Example.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            //get catalog
             var catalog = _filerStore.GetCatalog("documents");
-            var blobs = await catalog.ListAsync();
-            foreach (var b in blobs)
+
+            //delete all files
+            var blobInfos = await catalog.ListAsync();
+            foreach (var bi in blobInfos)
             {
-                await catalog.DeleteAsync(b);
+                await catalog.DeleteAsync(bi);
             }
 
-            var fileName = $"invoice.pdf";
-            var blob = new Blob(fileName, exampleFileStream);
-            blob.BlobInfo.Headers.Add("Seaweed-dupa","dupa");
-            var res = await catalog.PushAsync(blob);
-            var content = await res.Content.ReadAsStringAsync();
-            using var uploadedBlob = await catalog.GetAsync(fileName);
+            //create simple blob
+            var blob = new Blob($"{Guid.NewGuid()}.txt", exampleFileStream);
 
-            //var blobs = await catalog.ListAsync();var blobs = await catalog.ListAsync();
-            //foreach (var bi in blobs)
-            //{
-            //    var b = await catalog.GetAsync(bi);
-            //    await using var fs = System.IO.File.Create($"D:\\{bi.Name}");
-            //    await b.Content.CopyToAsync(fs);
-            //}
+            //add custom header value
+            blob.BlobInfo.Headers.Add("Seaweed-OwnerId", $"{Guid.NewGuid()}");
 
+            //push blob
+            await catalog.PushAsync(blob);
+
+            //get blob
+            using var uploadedBlob = await catalog.GetAsync(blob.BlobInfo.Name);
 
             return Ok();
         }

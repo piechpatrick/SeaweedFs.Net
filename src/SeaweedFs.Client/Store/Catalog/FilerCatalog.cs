@@ -57,7 +57,7 @@ namespace SeaweedFs.Filer.Store.Catalog
         /// </summary>
         /// <param name="blob">The BLOB.</param>
         /// <returns>Task&lt;HttpResponseMessage&gt;.</returns>
-        public async Task<HttpResponseMessage> PushAsync(Blob blob)
+        public async Task<bool> PushAsync(Blob blob)
         {
             await using var operation = new UploadFileStreamOperation(Path.Combine(Directory, blob.BlobInfo.Name), blob.BlobInfo, blob.Content);
             return await _executor.Execute(operation);

@@ -17,6 +17,18 @@ namespace SeaweedFs.Logging
     /// </summary>
     public class LoggerOptions
     {
+        public static LoggerOptions Default => new LoggerOptions
+        {
+            Level = "information",
+            ExcludePaths = new List<string>(){ "/metrics" },
+            Console = new ConsoleOptions{Enabled = true},
+            File = new FileOptions
+            {
+                Enabled = true,
+                Path = "logs/logs.txt",
+                Interval = "day"
+            }
+        };
         /// <summary>
         /// Gets or sets the level.
         /// </summary>
@@ -32,25 +44,28 @@ namespace SeaweedFs.Logging
         /// </summary>
         /// <value>The file.</value>
         public FileOptions File { get; set; }
+
         /// <summary>
         /// Gets or sets the minimum level overrides.
         /// </summary>
         /// <value>The minimum level overrides.</value>
-        public IDictionary<string, string> MinimumLevelOverrides { get; set; }
+        public IDictionary<string, string> MinimumLevelOverrides { get; set; } = new Dictionary<string, string>();
+
         /// <summary>
         /// Gets or sets the exclude paths.
         /// </summary>
         /// <value>The exclude paths.</value>
-        public IEnumerable<string> ExcludePaths { get; set; }
+        public IEnumerable<string> ExcludePaths { get; set; } = new List<string>();
         /// <summary>
         /// Gets or sets the exclude properties.
         /// </summary>
         /// <value>The exclude properties.</value>
-        public IEnumerable<string> ExcludeProperties { get; set; }
+        public IEnumerable<string> ExcludeProperties { get; set; } = new List<string>();
+
         /// <summary>
         /// Gets or sets the tags.
         /// </summary>
         /// <value>The tags.</value>
-        public IDictionary<string, object> Tags { get; set; }
+        public IDictionary<string, object> Tags { get; set; } = new Dictionary<string, object>();
     }
 }

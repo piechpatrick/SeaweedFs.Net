@@ -66,7 +66,8 @@ namespace SeaweedFs.Client.Example
                             {
                                 endpoints.MapControllers();
                             });
-                        });
+                        })
+                        .UseLogging(LoggerOptions.Default);
                 });
     }
 }

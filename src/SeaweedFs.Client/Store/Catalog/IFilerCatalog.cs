@@ -30,7 +30,7 @@ namespace SeaweedFs.Filer.Store.Catalog
         /// </summary>
         /// <param name="blob">The BLOB.</param>
         /// <returns>Task&lt;HttpResponseMessage&gt;.</returns>
-        Task<HttpResponseMessage> PushAsync(Blob blob);
+        Task<bool> PushAsync(Blob blob);
 
         /// <summary>
         /// Gets the specified file name.
