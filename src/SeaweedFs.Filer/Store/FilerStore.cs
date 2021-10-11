@@ -46,7 +46,6 @@ namespace SeaweedFs.Filer.Store
         /// <returns>IFilerCatalog.</returns>
         public IFilerCatalog GetCatalog(string directory)
         {
-            if (!directory.EndsWith("/")) directory += "/";
             return new FilerCatalog(directory, this, _executor);
         }
     }

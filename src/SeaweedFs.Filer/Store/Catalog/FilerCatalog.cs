@@ -7,15 +7,13 @@
 // Last Modified On : 10-11-2021
 // ***********************************************************************
 
-using System;
 using SeaweedFs.Filer.Internals.Operations;
 using SeaweedFs.Filer.Internals.Operations.Inbound;
 using SeaweedFs.Filer.Internals.Operations.Outbound;
 using SeaweedFs.Store;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SeaweedFs.Filer.Store.Catalog
@@ -42,8 +40,11 @@ namespace SeaweedFs.Filer.Store.Catalog
         /// <param name="directory">The directory.</param>
         /// <param name="filerStore">The filer store.</param>
         /// <param name="executor">The executor.</param>
+        /// <exception cref="System.ArgumentException">directory</exception>
         internal FilerCatalog(string directory, IFilerStore filerStore, IFilerOperationsExecutor executor)
         {
+            if (!directory.EndsWith("/")) directory += "/";
+            if (!string.IsNullOrEmpty(Path.GetFileName(directory))) throw new ArgumentException(nameof(directory));
             Directory = Path.GetDirectoryName(directory);
             _filerStore = filerStore;
             _executor = executor;
