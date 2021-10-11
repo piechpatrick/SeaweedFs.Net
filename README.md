@@ -29,7 +29,7 @@ POC
               
 
   
-`Subdirectories concept`- mean, that we could create catalog entry with subdirectories. Bear in mind that **subdirectories are not supported** but it's next thing **TODO**     
+`Subdirectories concept`- mean, that we could create catalog entry with subdirectories.      
             
              var documentInvoicesCatalog = _filerStore.GetCatalog("documents/invoices");
 
