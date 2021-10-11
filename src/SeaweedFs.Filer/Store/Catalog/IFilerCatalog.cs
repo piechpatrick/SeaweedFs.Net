@@ -7,6 +7,7 @@
 // Last Modified On : 10-11-2021
 // ***********************************************************************
 
+using System;
 using SeaweedFs.Store;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -29,22 +30,25 @@ namespace SeaweedFs.Filer.Store.Catalog
         /// Uploads the file.
         /// </summary>
         /// <param name="blob">The BLOB.</param>
+        /// <param name="progress">The progress.</param>
         /// <returns>Task&lt;HttpResponseMessage&gt;.</returns>
-        Task<bool> PushAsync(Blob blob);
+        Task<bool> PushAsync(Blob blob, IProgress<int> progress = null);
 
         /// <summary>
         /// Gets the specified file name.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
+        /// <param name="progress">The progress.</param>
         /// <returns>Task&lt;Blob&gt;.</returns>
-        Task<Blob> GetAsync(string fileName);
+        Task<Blob> GetAsync(string fileName,IProgress<int> progress = null);
 
         /// <summary>
         /// Gets the asynchronous.
         /// </summary>
         /// <param name="blobInfo">The BLOB information.</param>
+        /// <param name="progress">The progress.</param>
         /// <returns>Task&lt;Blob&gt;.</returns>
-        Task<Blob> GetAsync(BlobInfo blobInfo);
+        Task<Blob> GetAsync(BlobInfo blobInfo, IProgress<int> progress = null);
 
         /// <summary>
         /// Deletes the asynchronous.

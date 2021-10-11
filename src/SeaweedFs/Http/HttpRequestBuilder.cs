@@ -103,8 +103,9 @@ namespace SeaweedFs.Http
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="fileName">Name of the file.</param>
+        /// <param name="bufferSize">Size of the buffer.</param>
         /// <returns>IHttpRequestBuilder.</returns>
-        public IHttpRequestBuilder WithMultipartStreamFormDataContent(Stream stream, string fileName)
+        public IHttpRequestBuilder WithMultipartStreamFormDataContent(Stream stream, string fileName, int bufferSize = 0)
         {
             var form = new MultipartFormDataContent($"---{nameof(HttpRequestBuilder)}" + DateTime.Now.ToString(CultureInfo.InvariantCulture));
             var streamContent = new StreamContent(stream);

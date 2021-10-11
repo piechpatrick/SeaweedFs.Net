@@ -7,6 +7,7 @@
 // Last Modified On : 10-11-2021
 // ***********************************************************************
 
+using System;
 using SeaweedFs.Filer.Internals.Operations;
 using SeaweedFs.Filer.Internals.Operations.Inbound;
 using SeaweedFs.Filer.Internals.Operations.Outbound;
@@ -57,34 +58,37 @@ namespace SeaweedFs.Filer.Store.Catalog
         /// Uploads the file.
         /// </summary>
         /// <param name="blob">The BLOB.</param>
+        /// <param name="progress">The progress.</param>
         /// <returns>Task&lt;HttpResponseMessage&gt;.</returns>
-        public async Task<bool> PushAsync(Blob blob)
+        public async Task<bool> PushAsync(Blob blob, IProgress<int> progress = null)
         {
-            await using var operation = new UploadFileStreamOperation(Path.Combine(Directory, blob.BlobInfo.Name), blob.BlobInfo, blob.Content);
+            await using var operation = new UploadFileOutboundStreamOperation(Path.Combine(Directory, blob.BlobInfo.Name), blob.BlobInfo, blob.Content, progress);
             return await _executor.Execute(operation);
         }
         /// <summary>
         /// Gets the specified file name.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
+        /// <param name="progress">The progress.</param>
         /// <returns>Blob.</returns>
-        public async Task<Blob> GetAsync(string fileName)
+        public async Task<Blob> GetAsync(string fileName, IProgress<int> progress = null)
         {
-            var operation = new GetFileStreamOperation(Path.Combine(Directory, Path.GetFileName(fileName)));
+            var operation = new GetFileStreamOperation(Path.Combine(Directory, Path.GetFileName(fileName)), progress);
             var response = await _executor.Execute(operation);
             var blobInfo = new BlobInfo(fileName);
-            foreach (var header in response.Headers)
+            foreach (var header in response.Item1.Headers)
                 blobInfo.Headers.Add(header.Key, header.Value);
-            return new Blob(blobInfo, await response.Content.ReadAsStreamAsync());
+            return new Blob(blobInfo, response.Item2);
         }
         /// <summary>
         /// Gets the specified BLOB information.
         /// </summary>
         /// <param name="blobInfo">The BLOB information.</param>
+        /// <param name="progress">The progress.</param>
         /// <returns>Blob.</returns>
-        public Task<Blob> GetAsync(BlobInfo blobInfo)
+        public Task<Blob> GetAsync(BlobInfo blobInfo, IProgress<int> progress = null)
         {
-            return this.GetAsync(blobInfo.Name);
+            return this.GetAsync(blobInfo.Name, progress);
         }
 
         /// <summary>

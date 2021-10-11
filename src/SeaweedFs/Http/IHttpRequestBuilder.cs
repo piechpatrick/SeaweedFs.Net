@@ -57,7 +57,8 @@ namespace SeaweedFs.Http
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="fileName">Name of the file.</param>
+        /// <param name="bufferSize">Size of the buffer.</param>
         /// <returns>IHttpRequestBuilder.</returns>
-        IHttpRequestBuilder WithMultipartStreamFormDataContent(Stream stream, string fileName);
+        IHttpRequestBuilder WithMultipartStreamFormDataContent(Stream stream, string fileName, int bufferSize = 0);
     }
 }

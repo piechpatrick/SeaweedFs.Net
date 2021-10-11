@@ -7,11 +7,12 @@
 // Last Modified On : 10-11-2021
 // ***********************************************************************
 
+using SeaweedFs.Filer.Internals.Operations.Abstractions;
+using SeaweedFs.Operations;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using SeaweedFs.Filer.Internals.Operations.Abstractions;
-using SeaweedFs.Operations;
 
 namespace SeaweedFs.Filer.Internals.Operations.Inbound
 {
@@ -22,7 +23,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Inbound
     /// </summary>
     /// <seealso cref="OperationBase" />
     /// <seealso cref="Stream" />
-    internal class GetFileStreamOperation : OperationBase, IFilerOperation<HttpResponseMessage>
+    internal class GetFileStreamOperation : OperationBase, IFilerOperation<(HttpResponseMessage, Stream)>
     {
         /// <summary>
         /// The path
@@ -30,10 +31,17 @@ namespace SeaweedFs.Filer.Internals.Operations.Inbound
         private readonly string _path;
 
         /// <summary>
+        /// The stream
+        /// </summary>
+        private Stream _stream = new MemoryStream();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetFileStreamOperation" /> class.
         /// </summary>
         /// <param name="path">The path.</param>
-        public GetFileStreamOperation(string path)
+        /// <param name="progress">The progress.</param>
+        internal GetFileStreamOperation(string path, IProgress<int> progress = null)
+        : base(progress)
         {
             _path = path;
         }
@@ -43,12 +51,34 @@ namespace SeaweedFs.Filer.Internals.Operations.Inbound
         /// </summary>
         /// <param name="filerClient">The filerClient.</param>
         /// <returns>Task&lt;TResult&gt;.</returns>
-        public Task<HttpResponseMessage> Execute(IFilerClient filerClient)
+        async Task<(HttpResponseMessage, Stream)> IFilerOperation<(HttpResponseMessage, Stream)>.Execute(IFilerClient filerClient)
         {
-            return filerClient.SendAsync(HttpRequestBuilder
+            var response = await filerClient.SendAsync(HttpRequestBuilder
                 .WithMethod(HttpMethod.Get)
                 .WithRelativeUrl(_path)
                 .Build());
+            _stream = await response.Content.ReadAsStreamAsync();
+            if (_progress != null)
+                StartReportingProgress();
+            return (response, _stream);
+        }
+        /// <summary>
+        /// Reports the progress.
+        /// </summary>
+        /// <returns>Task.</returns>
+        protected override async Task ReportProgress()
+        {
+            var prevPos = -1;
+            _progress?.Report(0);
+            while (_stream.Position < _stream.Length)
+            {
+                int pos = (int)Math.Round(100 * (_stream.Position / (double)_stream.Length));
+                if (pos != prevPos)
+                    _progress?.Report(pos);
+                prevPos = pos;
+                await Task.Delay(100);
+            }
+            _progress?.Report(100);
         }
     }
 }

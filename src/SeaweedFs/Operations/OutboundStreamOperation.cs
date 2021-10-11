@@ -4,7 +4,7 @@
 // Created          : 10-09-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-10-2021
+// Last Modified On : 10-11-2021
 // ***********************************************************************
 
 using System;
@@ -31,7 +31,9 @@ namespace SeaweedFs.Operations
         /// Initializes a new instance of the <see cref="OutboundStreamOperation" /> class.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        protected OutboundStreamOperation(Stream stream)
+        /// <param name="_progress">The progress.</param>
+        protected OutboundStreamOperation(Stream stream, IProgress<int> _progress = null)
+            : base(_progress)
         {
             _stream = stream;
         }
@@ -49,6 +51,23 @@ namespace SeaweedFs.Operations
         public ValueTask DisposeAsync()
         {
             return _stream?.DisposeAsync() ?? ValueTask.CompletedTask;
+        }
+        /// <summary>
+        /// Reports the progress.
+        /// </summary>
+        /// <returns>Task.</returns>
+        protected override async Task ReportProgress()
+        {
+            var prevPos = -1;
+            _progress?.Report(0);
+            while (_stream.Position < _stream.Length)
+            {
+                int pos = (int)Math.Round(100 * (_stream.Position / (double)_stream.Length));
+                if (pos != prevPos)
+                    _progress?.Report(pos);
+                prevPos = pos;
+                await Task.Delay(100);
+            }
         }
     }
 }

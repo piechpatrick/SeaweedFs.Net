@@ -7,8 +7,9 @@
 // Last Modified On : 10-11-2021
 // ***********************************************************************
 
-using System;
 using SeaweedFs.Http;
+using System;
+using System.Threading.Tasks;
 
 namespace SeaweedFs.Operations
 {
@@ -23,17 +24,39 @@ namespace SeaweedFs.Operations
         protected readonly IHttpRequestBuilder HttpRequestBuilder;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OperationBase" /> class.
+        /// The progress
         /// </summary>
-        protected OperationBase()
-        {
-            HttpRequestBuilder = new HttpRequestBuilder();
-            Created = DateTime.Now;
-        }
+        protected readonly IProgress<int> _progress;
         /// <summary>
         /// Gets the created.
         /// </summary>
         /// <value>The created.</value>
         public DateTime Created { get; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OperationBase" /> class.
+        /// </summary>
+        /// <param name="progress">The progress.</param>
+        protected OperationBase(IProgress<int> progress = null)
+        {
+            _progress = progress;
+            HttpRequestBuilder = new HttpRequestBuilder();
+            Created = DateTime.Now;
+        }
+        /// <summary>
+        /// Starts the report progress.
+        /// </summary>
+        protected virtual async void StartReportingProgress()
+        {
+            await Task.Factory.StartNew(ReportProgress).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// Reports the progress.
+        /// </summary>
+        /// <returns>Task.</returns>
+        protected virtual Task ReportProgress()
+        {
+            _progress?.Report(100);
+            return Task.CompletedTask;
+        }
     }
 }
