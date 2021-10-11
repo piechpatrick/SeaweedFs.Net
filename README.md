@@ -45,6 +45,16 @@ Setup:
             
 Usage:
 
+            //get catalog
+            var catalog = _filerStore.GetCatalog("documents");
+
+            //delete all files
+            var blobInfos = await catalog.ListAsync();
+            foreach (var bi in blobInfos)
+            {
+                await catalog.DeleteAsync(bi);
+            }
+
             //create simple blob
             var blob = new Blob($"{Guid.NewGuid()}.txt", exampleFileStream);
 
