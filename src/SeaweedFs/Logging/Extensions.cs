@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Assembly         : SeaweedFs.Client
+// Assembly         : SeaweedFs
 // Author           : piechpatrick
 // Created          : 10-09-2021
 //

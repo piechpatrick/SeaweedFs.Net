@@ -1,10 +1,23 @@
-﻿using System.IO;
+﻿// ***********************************************************************
+// Assembly         : SeaweedFs.Filer
+// Author           : piechpatrick
+// Created          : 10-10-2021
+//
+// Last Modified By : piechpatrick
+// Last Modified On : 10-11-2021
+// ***********************************************************************
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using SeaweedFs.Abstractions;
 
 namespace SeaweedFs.Filer.Internals
 {
+    /// <summary>
+    /// Interface IFilerClient
+    /// Implements the <see cref="SeaweedFs.Abstractions.IOperator" />
+    /// </summary>
+    /// <seealso cref="SeaweedFs.Abstractions.IOperator" />
     internal interface IFilerClient : IOperator
     {
         /// <summary>

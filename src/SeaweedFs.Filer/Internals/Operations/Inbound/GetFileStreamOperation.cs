@@ -1,10 +1,10 @@
 ﻿// ***********************************************************************
-// Assembly         : SeaweedFs.Client
+// Assembly         : SeaweedFs.Filer
 // Author           : piechpatrick
 // Created          : 10-09-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-09-2021
+// Last Modified On : 10-11-2021
 // ***********************************************************************
 
 using System.IO;
@@ -30,7 +30,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Inbound
         private readonly string _path;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetFileStreamOperation"/> class.
+        /// Initializes a new instance of the <see cref="GetFileStreamOperation" /> class.
         /// </summary>
         /// <param name="path">The path.</param>
         public GetFileStreamOperation(string path)

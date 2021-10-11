@@ -33,7 +33,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Outbound
         private readonly BlobInfo _blobInfo;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TagFileOperation"/> class.
+        /// Initializes a new instance of the <see cref="TagFileOperation" /> class.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="blobInfo">The BLOB information.</param>

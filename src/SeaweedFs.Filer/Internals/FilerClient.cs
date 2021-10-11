@@ -1,10 +1,10 @@
 ﻿// ***********************************************************************
-// Assembly         : SeaweedFs.Client
+// Assembly         : SeaweedFs.Filer
 // Author           : piechpatrick
 // Created          : 10-09-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-09-2021
+// Last Modified On : 10-11-2021
 // ***********************************************************************
 
 using System.IO;
@@ -28,8 +28,7 @@ namespace SeaweedFs.Filer.Internals
         /// <summary>
         /// Initializes a new instance of the <see cref="FilerClient" /> class.
         /// </summary>
-        /// <param name="httpClientFactory">The HTTP client factory.</param>
-        /// <param name="options">The options.</param>
+        /// <param name="httpClient">The HTTP client.</param>
         public FilerClient(HttpClient httpClient)
         {
             _httpClient = httpClient;

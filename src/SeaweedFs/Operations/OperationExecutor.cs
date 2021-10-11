@@ -4,7 +4,7 @@
 // Created          : 10-10-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-10-2021
+// Last Modified On : 10-11-2021
 // ***********************************************************************
 
 using SeaweedFs.Abstractions;
@@ -22,7 +22,7 @@ namespace SeaweedFs.Operations
         /// </summary>
         protected readonly T _operator;
         /// <summary>
-        /// Initializes a new instance of the <see cref="OperationExecutor{T}"/> class.
+        /// Initializes a new instance of the <see cref="OperationExecutor{T}" /> class.
         /// </summary>
         /// <param name="operator">The operator.</param>
         public OperationExecutor(T @operator)

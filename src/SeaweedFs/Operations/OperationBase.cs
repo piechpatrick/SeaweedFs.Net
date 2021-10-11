@@ -1,10 +1,10 @@
 ﻿// ***********************************************************************
-// Assembly         : SeaweedFs.Client
+// Assembly         : SeaweedFs
 // Author           : piechpatrick
 // Created          : 10-09-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-09-2021
+// Last Modified On : 10-11-2021
 // ***********************************************************************
 
 using System;
@@ -23,7 +23,7 @@ namespace SeaweedFs.Operations
         protected readonly IHttpRequestBuilder HttpRequestBuilder;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OperationBase"/> class.
+        /// Initializes a new instance of the <see cref="OperationBase" /> class.
         /// </summary>
         protected OperationBase()
         {

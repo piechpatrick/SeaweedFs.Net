@@ -1,10 +1,10 @@
 ﻿// ***********************************************************************
-// Assembly         : SeaweedFs.Client
+// Assembly         : SeaweedFs.Filer
 // Author           : piechpatrick
 // Created          : 10-09-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-10-2021
+// Last Modified On : 10-11-2021
 // ***********************************************************************
 
 using Microsoft.Extensions.Configuration;

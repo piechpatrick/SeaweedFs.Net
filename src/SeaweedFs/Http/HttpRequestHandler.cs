@@ -4,7 +4,7 @@
 // Created          : 10-10-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-10-2021
+// Last Modified On : 10-11-2021
 // ***********************************************************************
 
 using System;
@@ -33,7 +33,7 @@ namespace SeaweedFs.Http
         private readonly TRequestBuilder _requestBuilder;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HttpRequestHandler{TRequestBuilder}"/> class.
+        /// Initializes a new instance of the <see cref="HttpRequestHandler{TRequestBuilder}" /> class.
         /// </summary>
         /// <param name="httpClient">The HTTP client.</param>
         /// <param name="requestBuilder">The request builder.</param>
