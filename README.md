@@ -33,7 +33,7 @@ POC
             
              var documentInvoicesCatalog = _filerStore.GetCatalog("documents/invoices");
 
-It's should be really powerfull with dynamic catalog's.  
+It's should be really powerfull with dynamic catalog subdirectories    
 
             var userInvoiceAttachmentsCat = _filerStore.GetCatalog($"documents/{userId}/invoices/{invoiceId}/attachments");  
                       
