@@ -1,7 +1,43 @@
-SeaweedFs.Client
+SeaweedFs.NetCore
 ============
 
-C# [seaweedfs](https://github.com/chrislusf/seaweedfs) client. [Example](./examples/SeaweedFs.Client.Example) usage.
+C# [seaweedfs](https://github.com/chrislusf/seaweedfs) client. [Example](./examples/SeaweedFs.Client.Example) usage  
+Currently- only [Filer](https://github.com/chrislusf/seaweedfs/wiki/Filer-Setup) is implemented  
+
+POC
+------- 
+ ### IFilerStore
+`IFilerStore`- root directory. Entry `http://localhost:8888/`. Basically, it's a `IFilerCatalog` provider        
+
+            /// <summary>
+            /// Interface IFilerStore
+            /// </summary>
+            public interface IFilerStore
+            {
+                /// <summary>
+                /// Gets the catalog.
+                /// </summary>
+                /// <param name="directory">The directory.</param>
+                /// <returns>IFilerCatalog.</returns>
+                IFilerCatalog GetCatalog(string directory);
+            }
+ 
+ ### IFilerCatalog
+`IFilerCatalog`- directory entry from root path eg. `http://localhost:8888/documents`  
+
+              var documentsCatalog = _filerStore.GetCatalog("documents");
+              
+
+  
+`Subdirectories concept`- mean, that we could create catalog entry with subdirectories. Bear in mind that **subdirectories are not supported** but it's next thing **TODO**     
+            
+             var documentInvoicesCatalog = _filerStore.GetCatalog("documents/invoices");
+
+It's should be really powerfull with dynamic catalog's.  
+
+            var userInvoiceAttachmentsCat = _filerStore.GetCatalog($"documents/{userId}/invoices/{invoiceId}/attachments");  
+                      
+           
 
 Quick Start
 -------
