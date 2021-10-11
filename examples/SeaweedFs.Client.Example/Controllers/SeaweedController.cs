@@ -76,7 +76,7 @@ namespace SeaweedFs.Client.Example.Controllers
         public async Task<IActionResult> Get()
         {
             //create fakeFileStream
-            using (var outboundFileStream = await GetStream(0xC0FFEE))
+            await using (var outboundFileStream = await GetStream(0xC0FFEE))
             {
 
                 _logger.LogInformation($"File Created: {outboundFileStream.Name}");
