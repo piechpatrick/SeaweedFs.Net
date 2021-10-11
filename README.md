@@ -1,4 +1,4 @@
-SeaweedFs.NetCore
+SeaweedFs.Net
 ============
 
 C# [seaweedfs](https://github.com/chrislusf/seaweedfs) client. [Example](./examples/SeaweedFs.Client.Example) usage  
