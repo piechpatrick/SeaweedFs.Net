@@ -4,17 +4,15 @@
 // Created          : 10-11-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-11-2021
+// Last Modified On : 10-12-2021
 // ***********************************************************************
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Win32.SafeHandles;
 using SeaweedFs.Filer.Store;
 using SeaweedFs.Store;
 using System;
+using System.Buffers;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SeaweedFs.Client.Example.Controllers
@@ -33,18 +31,21 @@ namespace SeaweedFs.Client.Example.Controllers
         /// </summary>
         /// <param name="size">The size.</param>
         /// <returns>System.Byte[].</returns>
-        private async Task<FileStream> GetStream(uint size)
+        private async Task<FileStream> GetStream(int size)
         {
-            var memoryStream = new MemoryStream();
+            var text = "COFFEE~~BABE~~";
+            var buffer = ArrayPool<byte>.Shared.Rent(size * text.Length);
+            var memoryStream = new MemoryStream(buffer);
             StreamWriter sr = new StreamWriter(memoryStream);
             for (int i = 0; i < size; i++)
-                    await sr.WriteAsync("COFFEE~~BABE~~");
+                await sr.WriteAsync(text);
             await memoryStream.FlushAsync();
             memoryStream.Position = 0;
             var fileStream = new FileStream(Path.GetRandomFileName(), FileMode.Create, FileAccess.ReadWrite);
             await memoryStream.CopyToAsync(fileStream);
             await memoryStream.DisposeAsync();
             fileStream.Position = 0;
+            ArrayPool<byte>.Shared.Return(buffer);
             return fileStream;
         }
 
@@ -105,10 +106,12 @@ namespace SeaweedFs.Client.Example.Controllers
                     //read
                     using (var sr = new StreamReader(uploadedBlob.Content))
                     {
-                        string line;
-                        while ((line = await sr.ReadLineAsync()) != null)
+                        var buffer = ArrayPool<char>.Shared.Rent(128);
+                        while (await sr.ReadAsync(buffer) > 0)
                         {
 
+
+                            ArrayPool<char>.Shared.Return(buffer);
                         }
                     }
 
@@ -118,7 +121,7 @@ namespace SeaweedFs.Client.Example.Controllers
                 System.IO.File.Delete(outboundFileStream.Name);
                 _logger.LogInformation($"File Deleted: {outboundFileStream.Name}");
             }
-            
+
             return Ok();
         }
     }

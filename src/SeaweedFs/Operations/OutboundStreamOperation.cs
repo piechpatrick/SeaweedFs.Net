@@ -66,7 +66,7 @@ namespace SeaweedFs.Operations
                 if (pos != prevPos)
                     _progress?.Report(pos);
                 prevPos = pos;
-                await Task.Delay(100);
+                await Task.Delay(10);
             }
         }
     }
