@@ -14,7 +14,6 @@ using System;
 using System.Buffers;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.IO;
 
 namespace SeaweedFs.Client.Example.Controllers
 {
@@ -38,7 +37,7 @@ namespace SeaweedFs.Client.Example.Controllers
             var buffer = ArrayPool<byte>.Shared.Rent(size);
             try
             {
-                await System.IO.File.WriteAllBytesAsync(fileName,buffer);
+                await System.IO.File.WriteAllBytesAsync(fileName, buffer);
             }
             finally
             {
