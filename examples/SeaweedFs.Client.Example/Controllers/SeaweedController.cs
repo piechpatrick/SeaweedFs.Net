@@ -14,6 +14,7 @@ using System;
 using System.Buffers;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.IO;
 
 namespace SeaweedFs.Client.Example.Controllers
 {
@@ -27,26 +28,27 @@ namespace SeaweedFs.Client.Example.Controllers
     public class SeaweedController : ControllerBase
     {
         /// <summary>
+        /// The memory stream manager
+        /// </summary>
+        private static readonly RecyclableMemoryStreamManager _memoryStreamManager = new RecyclableMemoryStreamManager();
+        /// <summary>
         /// Generates this instance.
         /// </summary>
         /// <param name="size">The size.</param>
         /// <returns>System.Byte[].</returns>
-        private async Task<FileStream> GetStream(int size)
+        private async Task<string> GetFileName(int size)
         {
-            var text = "COFFEE~~BABE~~";
-            var buffer = ArrayPool<byte>.Shared.Rent(size * text.Length);
-            var memoryStream = new MemoryStream(buffer);
-            StreamWriter sr = new StreamWriter(memoryStream);
-            for (int i = 0; i < size; i++)
-                await sr.WriteAsync(text);
-            await memoryStream.FlushAsync();
-            memoryStream.Position = 0;
-            var fileStream = new FileStream(Path.GetRandomFileName(), FileMode.Create, FileAccess.ReadWrite);
-            await memoryStream.CopyToAsync(fileStream);
-            await memoryStream.DisposeAsync();
-            fileStream.Position = 0;
-            ArrayPool<byte>.Shared.Return(buffer);
-            return fileStream;
+            var fileName = Path.GetRandomFileName();
+            var buffer = ArrayPool<byte>.Shared.Rent(size);
+            try
+            {
+                await System.IO.File.WriteAllBytesAsync(fileName,buffer);
+            }
+            finally
+            {
+                ArrayPool<byte>.Shared.Return(buffer);
+            }
+            return fileName;
         }
 
         /// <summary>
@@ -77,7 +79,7 @@ namespace SeaweedFs.Client.Example.Controllers
         public async Task<IActionResult> Get()
         {
             //create fakeFileStream
-            await using (var outboundFileStream = await GetStream(0xC0FFEE))
+            await using (var outboundFileStream = System.IO.File.OpenRead(await GetFileName(0xC0FFEEE)))
             {
 
                 _logger.LogInformation($"File Created: {outboundFileStream.Name}");
