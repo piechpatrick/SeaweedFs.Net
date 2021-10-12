@@ -28,10 +28,6 @@ namespace SeaweedFs.Client.Example.Controllers
     public class SeaweedController : ControllerBase
     {
         /// <summary>
-        /// The memory stream manager
-        /// </summary>
-        private static readonly RecyclableMemoryStreamManager _memoryStreamManager = new RecyclableMemoryStreamManager();
-        /// <summary>
         /// Generates this instance.
         /// </summary>
         /// <param name="size">The size.</param>
