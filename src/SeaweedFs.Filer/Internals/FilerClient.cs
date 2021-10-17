@@ -4,7 +4,7 @@
 // Created          : 10-09-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-11-2021
+// Last Modified On : 10-13-2021
 // ***********************************************************************
 
 using System.IO;
@@ -35,6 +35,16 @@ namespace SeaweedFs.Filer.Internals
         }
 
         /// <summary>
+        /// Sends the asynchronous.
+        /// </summary>
+        /// <param name="httpRequestMessage">The HTTP request message.</param>
+        /// <param name="httpCompletionOption">The HTTP completion option.</param>
+        /// <returns>Task&lt;HttpResponseMessage&gt;.</returns>
+        Task<HttpResponseMessage> IFilerClient.SendAsync(HttpRequestMessage httpRequestMessage, HttpCompletionOption httpCompletionOption)
+        {
+            return _httpClient.SendAsync(httpRequestMessage, httpCompletionOption);
+        }
+        /// <summary>
         /// Gets the stream asynchronous.
         /// </summary>
         /// <param name="httpRequestMessage">The HTTP request message.</param>
@@ -42,16 +52,6 @@ namespace SeaweedFs.Filer.Internals
         Task<Stream> IFilerClient.GetStreamAsync(HttpRequestMessage httpRequestMessage)
         {
             return _httpClient.GetStreamAsync(httpRequestMessage.RequestUri);
-        }
-
-        /// <summary>
-        /// Sends the asynchronous.
-        /// </summary>
-        /// <param name="httpRequestMessage">The HTTP request message.</param>
-        /// <returns>Task&lt;HttpResponseMessage&gt;.</returns>
-        Task<HttpResponseMessage> IFilerClient.SendAsync(HttpRequestMessage httpRequestMessage)
-        {
-            return _httpClient.SendAsync(httpRequestMessage);
         }
     }
 }

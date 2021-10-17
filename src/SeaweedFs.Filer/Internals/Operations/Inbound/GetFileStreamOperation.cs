@@ -56,7 +56,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Inbound
             var response = await filerClient.SendAsync(HttpRequestBuilder
                 .WithMethod(HttpMethod.Get)
                 .WithRelativeUrl(_path)
-                .Build());
+                .Build(), HttpCompletionOption.ResponseHeadersRead);
             _stream = await response.Content.ReadAsStreamAsync();
             if (_progress != null)
                 StartReportingProgress();

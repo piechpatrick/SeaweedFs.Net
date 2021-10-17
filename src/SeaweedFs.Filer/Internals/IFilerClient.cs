@@ -4,7 +4,7 @@
 // Created          : 10-10-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-11-2021
+// Last Modified On : 10-13-2021
 // ***********************************************************************
 using System.IO;
 using System.Net.Http;
@@ -24,8 +24,9 @@ namespace SeaweedFs.Filer.Internals
         /// Sends the asynchronous.
         /// </summary>
         /// <param name="httpRequestMessage">The HTTP request message.</param>
+        /// <param name="httpCompletionOption">The HTTP completion option.</param>
         /// <returns>Task&lt;HttpResponseMessage&gt;.</returns>
-        Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage);
+        Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage, HttpCompletionOption httpCompletionOption);
         /// <summary>
         /// Gets the stream asynchronous.
         /// </summary>

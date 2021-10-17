@@ -49,7 +49,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Outbound
         /// <returns>Task&lt;TResult&gt;.</returns>
         async Task<bool> IFilerOperation<bool>.Execute(IFilerClient filerClient)
         {
-            var response = await filerClient.SendAsync(this.BuildRequest());
+            var response = await filerClient.SendAsync(this.BuildRequest(), HttpCompletionOption.ResponseContentRead);
             return response.IsSuccessStatusCode;
         }
         /// <summary>

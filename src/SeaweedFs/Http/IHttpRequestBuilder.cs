@@ -4,7 +4,7 @@
 // Created          : 10-09-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-11-2021
+// Last Modified On : 10-13-2021
 // ***********************************************************************
 
 using System.Collections.Generic;
@@ -57,8 +57,7 @@ namespace SeaweedFs.Http
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <param name="bufferSize">Size of the buffer.</param>
         /// <returns>IHttpRequestBuilder.</returns>
-        IHttpRequestBuilder WithMultipartStreamFormDataContent(Stream stream, string fileName, int bufferSize = 0);
+        IHttpRequestBuilder WithMultipartStreamFormDataContent(Stream stream, string fileName);
     }
 }

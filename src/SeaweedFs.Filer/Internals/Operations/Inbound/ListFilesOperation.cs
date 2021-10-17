@@ -52,7 +52,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Inbound
         /// <returns>Task&lt;TResult&gt;.</returns>
         async Task<IEnumerable<BlobInfo>> IFilerOperation<IEnumerable<BlobInfo>>.Execute(IFilerClient filerClient)
         {
-            var response = await filerClient.SendAsync(this.BuildRequest());
+            var response = await filerClient.SendAsync(this.BuildRequest(), HttpCompletionOption.ResponseContentRead);
             if (response.IsSuccessStatusCode)
                 return JsonSerializer.Deserialize<DirectoryFileEntriesResponse>(await response.Content.ReadAsStringAsync())
                            ?.Entries.Where(ex => Convert.ToString(ex.Mode, 8) == "660")

@@ -4,7 +4,7 @@
 // Created          : 10-09-2021
 //
 // Last Modified By : piechpatrick
-// Last Modified On : 10-11-2021
+// Last Modified On : 10-12-2021
 // ***********************************************************************
 
 using System;
@@ -103,9 +103,8 @@ namespace SeaweedFs.Http
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <param name="bufferSize">Size of the buffer.</param>
         /// <returns>IHttpRequestBuilder.</returns>
-        public IHttpRequestBuilder WithMultipartStreamFormDataContent(Stream stream, string fileName, int bufferSize = 0)
+        public IHttpRequestBuilder WithMultipartStreamFormDataContent(Stream stream, string fileName)
         {
             var form = new MultipartFormDataContent($"---{nameof(HttpRequestBuilder)}" + DateTime.Now.ToString(CultureInfo.InvariantCulture));
             var streamContent = new StreamContent(stream);

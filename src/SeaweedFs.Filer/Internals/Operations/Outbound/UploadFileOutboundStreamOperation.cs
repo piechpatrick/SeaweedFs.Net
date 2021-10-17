@@ -65,7 +65,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Outbound
             var request = this.BuildRequest();
             if (_progress != null)
                 StartReportingProgress();
-            var response = await filerClient.SendAsync(request);
+            var response = await filerClient.SendAsync(request, HttpCompletionOption.ResponseContentRead);
             if (response.IsSuccessStatusCode && _progress is { }) _progress?.Report(100);
             return response.IsSuccessStatusCode;
         }
@@ -79,7 +79,7 @@ namespace SeaweedFs.Filer.Internals.Operations.Outbound
             return HttpRequestBuilder.WithRelativeUrl(_path)
                 .WithMethod(HttpMethod.Post)
                 .WithHeaders(_blobInfo.Headers)
-                .WithMultipartStreamFormDataContent(_stream, FileName, 1024)
+                .WithMultipartStreamFormDataContent(_stream, FileName)
                 .Build();
         }
     }
