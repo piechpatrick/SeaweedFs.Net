@@ -41,7 +41,7 @@ namespace SeaweedFs.Client.Example.Controllers
             }
             finally
             {
-                ArrayPool<byte>.Shared.Return(buffer);
+                ArrayPool<byte>.Shared.Return(buffer,true); 
             }
             return fileName;
         }
