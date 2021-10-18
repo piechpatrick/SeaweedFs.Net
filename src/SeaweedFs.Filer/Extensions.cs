@@ -9,6 +9,8 @@
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
+using Polly.Extensions.Http;
 using SeaweedFs.Filer.Internals;
 using SeaweedFs.Filer.Internals.Operations;
 using SeaweedFs.Filer.Store;
@@ -40,7 +42,15 @@ namespace SeaweedFs.Filer
             serviceCollection.AddHttpClient(url, c =>
             {
                 c.BaseAddress = new Uri(url);
-                c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json));
+                c.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json));
+            }).AddPolicyHandler(message =>
+            {
+                return HttpPolicyExtensions
+                    .HandleTransientHttpError()
+                    .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2,
+                        retryAttempt)));
             });
 
 
