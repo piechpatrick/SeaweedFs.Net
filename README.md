@@ -35,7 +35,7 @@ POC
 
 It should be really powerfull with dynamic catalog subdirectories    
 
-            var userInvoiceAttachmentsCat = _filerStore.GetCatalog($"documents/{userId}/invoices/{invoiceId}/attachments");  
+            var userInvoiceAttachmentsCat = _filerStore.GetCatalog($"users/{userId}/documents/invoices/{invoiceId}/attachments");  
                       
            
 
