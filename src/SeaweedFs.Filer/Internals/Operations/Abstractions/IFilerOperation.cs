@@ -13,15 +13,15 @@ using SeaweedFs.Operations;
 namespace SeaweedFs.Filer.Internals.Operations.Abstractions
 {
     /// <summary>
-    /// Interface IFilerOperation
-    /// Implements the <see cref="IFilerClient" />
+    ///     Interface IFilerOperation
+    ///     Implements the <see cref="IFilerClient" />
     /// </summary>
     /// <typeparam name="TResult">The type of the t result.</typeparam>
     /// <seealso cref="IFilerClient" />
     internal interface IFilerOperation<TResult> : IOperation<IFilerClient>
     {
         /// <summary>
-        /// Executes the specified filerClient.
+        ///     Executes the specified filerClient.
         /// </summary>
         /// <param name="filerClient">The filerClient.</param>
         /// <returns>Task&lt;TResult&gt;.</returns>

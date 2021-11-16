@@ -7,21 +7,22 @@
 // Last Modified On : 10-11-2021
 // ***********************************************************************
 
-using SeaweedFs.Filer.Internals.Operations.Abstractions;
-using SeaweedFs.Operations;
-using SeaweedFs.Store;
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
+using SeaweedFs.Filer.Internals.Operations.Abstractions;
+using SeaweedFs.Operations;
+using SeaweedFs.Store;
 
 namespace SeaweedFs.Filer.Internals.Operations.Outbound
 {
     /// <summary>
-    /// Class UploadFileOutboundStreamOperation.
-    /// Implements the <see cref="OutboundStreamOperation" />
-    /// Implements the <see cref="HttpResponseMessage" />
-    /// Implements the <see cref="System.IAsyncDisposable" />
+    ///     Class UploadFileOutboundStreamOperation.
+    ///     Implements the <see cref="OutboundStreamOperation" />
+    ///     Implements the <see cref="HttpResponseMessage" />
+    ///     Implements the <see cref="System.IAsyncDisposable" />
     /// </summary>
     /// <seealso cref="OutboundStreamOperation" />
     /// <seealso cref="HttpResponseMessage" />
@@ -29,58 +30,61 @@ namespace SeaweedFs.Filer.Internals.Operations.Outbound
     internal class UploadFileOutboundStreamOperation : OutboundStreamOperation, IFilerOperation<bool>
     {
         /// <summary>
-        /// The path
-        /// </summary>
-        private readonly string _path;
-        /// <summary>
-        /// The BLOB information
+        ///     The BLOB information
         /// </summary>
         private readonly BlobInfo _blobInfo;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UploadFileOutboundStreamOperation" /> class.
+        ///     The path
+        /// </summary>
+        private readonly string _path;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="UploadFileOutboundStreamOperation" /> class.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="blobInfo">The BLOB information.</param>
         /// <param name="stream">The stream.</param>
         /// <param name="progress">The progress.</param>
-        public UploadFileOutboundStreamOperation(string path, BlobInfo blobInfo, Stream stream, IProgress<int> progress = null)
-            : base(stream, progress)
+        public UploadFileOutboundStreamOperation(string path, BlobInfo blobInfo, Stream stream,
+            CancellationToken cancellationToken = default, IProgress<int> progress = null)
+            : base(stream, cancellationToken, progress)
         {
             _path = path;
             _blobInfo = blobInfo;
         }
+
         /// <summary>
-        /// Gets the name of the file.
+        ///     Gets the name of the file.
         /// </summary>
         /// <value>The name of the file.</value>
         public string FileName => Path.GetFileName(_path);
+
         /// <summary>
-        /// Executes the specified filerClient.
+        ///     Executes the specified filerClient.
         /// </summary>
         /// <param name="filerClient">The filerClient.</param>
         /// <returns>Task&lt;TResult&gt;.</returns>
         async Task<bool> IFilerOperation<bool>.Execute(IFilerClient filerClient)
         {
-            var request = this.BuildRequest();
+            var request = BuildRequest();
             if (_progress != null)
                 StartReportingProgress();
-            var response = await filerClient.SendAsync(request, HttpCompletionOption.ResponseContentRead);
+            var response =
+                await filerClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, _cancellationToken);
             if (response.IsSuccessStatusCode && _progress is { }) _progress?.Report(100);
             return response.IsSuccessStatusCode;
         }
 
         /// <summary>
-        /// Builds the request.
+        ///     Builds the request.
         /// </summary>
         /// <returns>HttpRequestMessage.</returns>
-        protected virtual HttpRequestMessage BuildRequest()
-        {
-            return HttpRequestBuilder.WithRelativeUrl(_path)
+        protected virtual HttpRequestMessage BuildRequest() =>
+            HttpRequestBuilder.WithRelativeUrl(_path)
                 .WithMethod(HttpMethod.Post)
                 .WithHeaders(_blobInfo.Headers)
                 .WithMultipartStreamFormDataContent(_stream, FileName)
                 .Build();
-        }
     }
 }
